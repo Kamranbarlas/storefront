@@ -22,7 +22,7 @@ class Collection(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, max_length= 1000)
     unit_price = models.DecimalField(
         max_digits=6,
         decimal_places=2,
