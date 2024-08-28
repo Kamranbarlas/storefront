@@ -33,8 +33,8 @@ class ProductDetail(RetrieveUpdateDestroyAPIView):
     #     serializer.save()
     #     return Response(serializer.data)
     
-    def delete(self, request, id):
-        product = get_object_or_404(Product, pk=id)
+    def delete(self, request, pk):
+        product = get_object_or_404(Product, pk=pk)
         if product.orderitems.count() > 0:
             return Response({'error': 'Product cannot be deleted because it is associated with an order item.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         product.delete()
