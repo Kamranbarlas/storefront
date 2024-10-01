@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'djoser',
     'django_filters',
     'playground',
     'store',
@@ -140,7 +142,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
-    'COERCE_DECIMAL_TO_STRING': False
+    'COERCE_DECIMAL_TO_STRING': False,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 AUTH_USER_MODEL = 'core.User'
+
+DJOSER = {
+    'SERIALIZERS':{
+        'user_create':'core.serializers.UserCreateSerializer',
+        'current_user': 'core.serializers.UserSerializer',
+    }
+    
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30)
+}
