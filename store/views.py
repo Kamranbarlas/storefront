@@ -16,7 +16,7 @@ from . permissions import IsAdminOrReadOnly, FullDjangoModelPermissions, ViewCus
 # Create your views here.
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.prefetch_related('images').all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend,SearchFilter,OrderingFilter]
     # filterset_fields = ['collection_id', 'unit_price']
